@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "reservation_system",
+    "host": "localhost",
+    "dialect": "mysql",
+    "timezone": "+8:00"
+  },
+  "production": {
+    "username": "greenarrow256",
+    "password": "grayback45",
+    "database": "jsiubsksowoqpmcn",
+    "host": "db4free.net",
+    "dialect": "mysql",
+    "port": 3306
+  }
+}

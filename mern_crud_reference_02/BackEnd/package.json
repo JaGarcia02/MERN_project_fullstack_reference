@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Goalsetter app for youtube tutorial",
+  "main": "server.js",
+  "scripts": {
+    "start": "node BackEnd/server.js",
+    "server": "nodemon BackEnd/server.js"
+  },
+  "author": "Ja Garcia",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "mongoose": "^6.9.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

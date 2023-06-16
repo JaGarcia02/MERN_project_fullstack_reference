@@ -1,0 +1,69 @@
+@layer utilities {
+  .bg-glass {
+    background: rgba(147, 145, 145, 0.45);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.1px);
+    -webkit-backdrop-filter: blur(7.1px);
+    border: 1px solid rgba(147, 145, 145, 0.26);
+  }
+  .bg-glasss {
+    background: rgba(147, 145, 145, 0.45);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.1px);
+    -webkit-backdrop-filter: blur(7.1px);
+    border: 1px solid rgba(147, 145, 145, 0.26);
+  }
+  .bg-glassv1 {
+    background: rgba(255, 255, 255, 0.54);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13.9px);
+    -webkit-backdrop-filter: blur(13.9px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  .font-resortlogo {
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif,
+      serif;
+    font-style: italic;
+    font-weight: bold;
+  }
+  .font-resortlogocontact {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+  }
+  .font-resortlogov1 {
+    font-family: "Times New Roman", Times, serif;
+  }
+  .nav-bar-items {
+    @apply h-full flex items-center cursor-pointer px-2 transition-all duration-400 hover:(bg-gray-400);
+  }
+  .slider-anim {
+    @apply h-full w-full flex items-center justify-center absolute opacity-100 transition-opacity duration-300;
+  }
+  .slider-active {
+    @apply h-full w-full flex items-center justify-center absolute opacity-0 transition-opacity duration-300;
+  }
+  .transition-border {
+    transition: border-width 0.6s linear;
+  }
+  .admin-topbar-items {
+    @apply h-10 w-full px-4 cursor-pointer flex items-center justify-center hover:(bg-gray-900 text-white);
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+body {
+  overflow-x: hidden;
+}
