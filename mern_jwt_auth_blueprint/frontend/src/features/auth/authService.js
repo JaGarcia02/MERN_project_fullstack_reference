@@ -27,10 +27,17 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+// Check Token
+const check_token = async (Token) => {
+  const response = await axios.post(API_URL + "check-token", Token);
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
+  check_token,
 };
 
 export default authService;

@@ -5,7 +5,7 @@ const app = express();
 const connection_to_database = async () => {
   try {
     const connection = await mongoose
-      .connect(process.env.MONGO_URI, {
+      .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })

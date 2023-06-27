@@ -1,4 +1,5 @@
 import React from "react";
+import Cookies from "js-cookie";
 import { Navbar, Nav, Container, NavDropdown, Badge } from "react-bootstrap";
 import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
@@ -12,6 +13,8 @@ const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(Cookies);
 
   const [logoutApiCall] = useLogoutMutation((state) => state.auth);
 

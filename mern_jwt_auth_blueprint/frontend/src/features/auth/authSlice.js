@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
 // get user form local storage //
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user")); // this is the token
 
 const initialState = {
   user: user ? user : null,
@@ -41,6 +41,24 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+
+// Check Token
+export const check_token = createAsyncThunk(
+  "auth/check-token",
+  async (Token, thunkAPI) => {
+    try {
+      return await authService.check_token(Token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
@@ -94,6 +112,12 @@ export const authSlice = createSlice({
       // logout
       .addCase(logout.fulfilled, (state, action) => {
         state.user = null;
+      })
+      // check token
+      .addCase(check_token.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });

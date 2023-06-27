@@ -114,15 +114,36 @@ const TestMe = async (req, res) => {
   }
 };
 
+// This will check the token if it is existing
+const GetToken = async (req, res) => {
+  const { Token } = req.body;
+  if (!Token) {
+    res.status(401).json({ message: "Not Authorized or No Token!" });
+  }
+
+  try {
+    const decoded = jwt.verify(Token, process.env.JWT_SECRET_KEY);
+    const tokenData = await User.findOne(decoded._id);
+
+    if (!tokenData) {
+      res.status(401).json({ message: "Not Authorized" });
+    } else {
+      res.status(200).json(decoded);
+    }
+  } catch (error) {
+    return res.status(401).json({ message: "Not Authorized!" });
+  }
+};
+
 // this will generate token after a function or a state is fulfilled
 const GenerateToken = (id, name, email) => {
   // token payload - you can put more data here
   return jwt.sign({ id, name, email }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "30d",
+    expiresIn: "10s",
   });
 };
 
-module.exports = { Register, Login, Update, Remove, TestMe };
+module.exports = { Register, Login, Update, Remove, TestMe, GetToken };
 
 // ************ with try catch ************ //
 // const View = async (req, res) => {

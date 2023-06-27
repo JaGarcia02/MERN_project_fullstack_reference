@@ -6,12 +6,14 @@ const {
   Update,
   Remove,
   TestMe,
+  GetToken,
 } = require("../controllers/user_controllers");
 const { protect } = require("../middleware/UserAuth_Middleware");
 
 // *post* //
 router.post("/", Register);
 router.post("/login", Login);
+router.post("/check-token", GetToken);
 
 // *get* //
 

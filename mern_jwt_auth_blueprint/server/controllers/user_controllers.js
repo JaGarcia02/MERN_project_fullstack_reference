@@ -5,7 +5,7 @@ import User from "../models/user.model.js";
 // @desc Auth user/ set Token
 // route POST /api/users/auth
 // @access Public
-const authUser = asyncHandler(async (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
@@ -163,7 +163,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 export {
-  authUser,
+  loginUser,
   registerUser,
   logoutUser,
   getUserProfile,
