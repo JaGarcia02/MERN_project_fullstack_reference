@@ -35,7 +35,7 @@ const Navbar = forwardRef(({ open, setOpen }, ref) => {
       ref={ref}
     >
       <div className="flex w-300 h-full <md:(justify-between) ">
-        <img src="/imgs/NewJe.jpg" alt="logo" />
+        <img src="/imgs/logo.png" alt="logo" />
         <div className="flex text-white items-center justify-evenly w-full <md:(hidden)">
           <a href="/" className="h-full">
             <span className="nav-bar-items">

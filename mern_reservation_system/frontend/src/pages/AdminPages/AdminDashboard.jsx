@@ -5,18 +5,17 @@ import { GrTransaction } from "react-icons/gr";
 import { FaBed } from "react-icons/fa";
 import { GoGraph } from "react-icons/go";
 import { BsFillCalendarCheckFill } from "react-icons/bs";
-
-import axios from "axios";
-import { API_URL_REPORTS } from "../../utils/Urls";
 import {
-  BarChart,
-  Bar,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
-  Tooltip,
   CartesianGrid,
+  Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import axios from "axios";
+import { API_URL_REPORTS } from "../../utils/Urls";
 
 const AdminDashboard = () => {
   const [data, setData] = useState([]);
@@ -55,14 +54,29 @@ const AdminDashboard = () => {
           </div>
         </div>
         <div className="h-full bg-blue-100 my-8 p-1  w-[90%]">
-          <ResponsiveContainer width="95%" height="100%">
-            <BarChart data={data}>
-              <XAxis dataKey="monthYear" stroke="#8884d8" />
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart
+              width={500}
+              height={400}
+              data={data}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 0,
+                bottom: 0,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="monthYear" />
               <YAxis />
               <Tooltip />
-              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <Bar dataKey="numberData" fill="#1122bb" barSize={30} />
-            </BarChart>
+              <Area
+                type="monotone"
+                dataKey="numberData"
+                stroke="#460202"
+                fill="#e43636"
+              />
+            </AreaChart>
           </ResponsiveContainer>
         </div>
       </div>

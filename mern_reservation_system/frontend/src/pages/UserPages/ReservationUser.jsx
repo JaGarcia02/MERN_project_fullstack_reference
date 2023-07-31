@@ -90,7 +90,7 @@ const ReservationUser = () => {
                     {moment(data.Date_Start).format("YYYY-MM-DD")}
                   </span>
                   <span className="text-[15px] mt-3  font-Roboto <md:(text-[14px])">
-                    Status: {data.reservation_status}
+                    Staus: {data.reservation_status}
                   </span>
                 </div>
                 <div className="w-full h-full flex items-end justify-end">

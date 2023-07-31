@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const ReservationSticky = () => {
   const [searchValues, setSearchValues] = useState({
-    category: "",
+    available: "",
     pax: "",
     date: "",
   });
@@ -11,7 +11,7 @@ const ReservationSticky = () => {
 
   const clickedSearch = () => {
     navigate(
-      `/searched/${searchValues.category}/${searchValues.date}/${searchValues.pax}`
+      `/searched/${searchValues.available}/${searchValues.date}/${searchValues.pax}`
     );
   };
 
@@ -45,9 +45,7 @@ const ReservationSticky = () => {
           <th className="font-thin text-white <md:(w-30 text-start)">
             Availability Date
           </th>
-          <th className="font-thin text-white <md:(w-15 text-start)">
-            Amenities
-          </th>
+          <th className="font-thin text-white <md:(w-15 text-start)">Rooms</th>
           <th className="font-thin text-white <md:()">Pax</th>
         </tr>
         <tr className="w-full items-center <md:(flex w-full mt-1 pl-3) ">
@@ -63,29 +61,17 @@ const ReservationSticky = () => {
             />
           </td>
           <td className=" ">
-            <select
+            <input
+              type="number"
+              className="border border-black w-30 <md:(w-15)"
               required
-              className="w-30 h-7 border-black border bg-white focus:(outline-none)"
               onChange={(e) =>
-                setSearchValues({ ...searchValues, category: e.target.value })
+                setSearchValues({
+                  ...searchValues,
+                  available: e.target.value,
+                })
               }
-            >
-              <option value="" selected hidden>
-                choose an option
-              </option>
-              <option value="KTV Rooms">KTV Rooms</option>
-              <option
-                value="Pools (Includes Private and Public)
-"
-              >
-                Pools (Includes Private and Public)
-              </option>
-              <option value="Cottages">Cottages</option>
-              <option value="Kids Pool and Pavilions">
-                Kids Pool and Pavilions
-              </option>
-              <option value="Function Hall">Function Hall</option>
-            </select>
+            />
           </td>
           <td className="<md:(flex) ">
             <input

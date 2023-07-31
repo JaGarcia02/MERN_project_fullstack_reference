@@ -4,18 +4,13 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/users/userSlice";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AiFillCloseCircle } from "react-icons/ai";
-import { IoEyeSharp } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
 
-const LoginModal = ({ setShowModal }) => {
+const LoginModal = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [fieldForms, setFieldForms] = useState({
     username: "",
     password: "",
   });
-  const [revealPassword, setRevealPassword] = useState(false);
 
   const login_modal = (e) => {
     e.preventDefault();
@@ -31,55 +26,40 @@ const LoginModal = ({ setShowModal }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         exit={{ opacity: 0 }}
-        className="w-80 h-50 absolute top-20 rounded-md text-center bg-white shadow-md shadow-gray-900 items-center flex-col justify-center"
+        className="w-80 h-40 absolute top-20 rounded-md text-center bg-white shadow-md shadow-gray-900 items-center flex-col justify-center"
       >
-        <div className="h-full w-full ">
-          <AiFillCloseCircle
-            className="text-red-600 absolute top-1 right-1 cursor-pointer text-[18px]"
-            onClick={() => setShowModal(false)}
-          />
-          <span className="text-center font-mono font-bold items-center text-black mt-3 justify-center flex text-[20px]">
-            Login
-          </span>
-          <input
-            className="bg-transparent border-b mt-3 border-black w-[70%] text-black  focus:outline-none placeholder-black"
-            placeholder="Username"
-            required
-            onChange={(e) =>
-              setFieldForms({ ...fieldForms, username: e.target.value })
-            }
-          />
-          <div className="relative flex items-center justify-center">
-            <input
-              className="bg-transparent border-b border-black w-[70%] text-black  focus:outline-none placeholder-black"
-              type={revealPassword ? "type" : "password"}
-              placeholder="Password"
-              required
-              onChange={(e) =>
-                setFieldForms({ ...fieldForms, password: e.target.value })
-              }
-            />
-            <IoEyeSharp
-              className="absolute right-12 cursor-pointer"
-              onMouseDown={() => setRevealPassword(true)}
-              onMouseUp={() => setRevealPassword(false)}
-              onMouseLeave={() => setRevealPassword(false)}
-            />
-          </div>
-          <button
-            type="submit"
-            className="mt-[5%] text-black w-[70%] bg-transparent rounded-full transition-all border border-transparent duration-700 hover:(border border-black)"
-          >
-            LOGIN
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate("/register")}
-            className="mt-[5%] text-black w-[70%] bg-transparent rounded-full transition-all border border-transparent duration-700 hover:(border border-black)"
-          >
-            REGISTER
-          </button>
-        </div>
+        <span className="text-center font-mono font-bold items-center text-black mt-3 justify-center flex text-[20px]">
+          Login
+        </span>
+        <input
+          className="bg-transparent border-b mt-3 border-black w-[70%] text-black  focus:outline-none placeholder-black"
+          placeholder="Username"
+          required
+          onChange={(e) =>
+            setFieldForms({ ...fieldForms, username: e.target.value })
+          }
+        />
+        <input
+          className="bg-transparent border-b border-black w-[70%] text-black  focus:outline-none placeholder-black"
+          type="password"
+          placeholder="Password"
+          required
+          onChange={(e) =>
+            setFieldForms({ ...fieldForms, password: e.target.value })
+          }
+        />
+        <button
+          type="submit"
+          className="mt-[5%] text-black w-[70%] bg-transparent rounded-full transition-all border border-transparent duration-700 hover:(border border-black)"
+        >
+          LOGIN
+        </button>
+        {/* <button
+          onClick={() => window.location.reload()}
+          className="w-40 mt-5 bg-green-300 border-none items-center justify-center text-black h-10"
+        >
+          OK
+        </button> */}
       </motion.form>
       <ToastContainer
         position="top-center"

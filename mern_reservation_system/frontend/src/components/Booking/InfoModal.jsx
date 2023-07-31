@@ -10,19 +10,15 @@ import Lottie from "lottie-react";
 import LoadingJson from "../../LottieFiles/98742-loading.json";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useParams } from "react-router-dom";
 
 const InfoModal = ({ setShowModal, reservationInfo, setReservationInfo }) => {
   const { user } = useSelector((state) => state.user);
-  const params = useParams();
-
-  console.log(params);
   const decodedToken = user ? jwt(user) : null;
   const [reserveData, setReserveData] = useState({
     reservation_roomID: reservationInfo.roomID,
     reservation_paymentMethod: "",
     reservation_key: uniqid().toString().toUpperCase(),
-    Date_Start: params.date,
+    Date_Start: null,
     reservation_package: "",
     reservation_status: "reserved",
   });
@@ -112,9 +108,12 @@ const InfoModal = ({ setShowModal, reservationInfo, setReservationInfo }) => {
           }}
         />
         <div className="w-full items-center justify-start flex flex-col">
-          <span className="mt-10 font-serif  text-center font-bold mb-4">
-            Payment Method
+          <span className="mt-10 font-serif  text-center font-bold">
+            Book a Hotel room
           </span>
+          <span className="mt-3 font-serif w-83 items-center justify-center flex text-cener text-[12px]">
+            Book online. Day rooms with same day check-in and check-out
+          </span>{" "}
         </div>
         <div className="w-full h-full flex <md:(flex flex-col h-auto)">
           <div className="flex flex-col  w-[50%] ml-3 shadow-md mb-2 shadow-black  items-start <md:(w-full ml-0 h-50)">
@@ -125,10 +124,9 @@ const InfoModal = ({ setShowModal, reservationInfo, setReservationInfo }) => {
                 onChange={(e) =>
                   setReserveData({
                     ...reserveData,
-                    reservation_paymentMethod: "Card",
+                    reservation_paymentMethod: "Card" ? "GCash" : "",
                   })
                 }
-                checked={reserveData.reservation_paymentMethod == "Card"}
               />
               <div className="items-center justify-center flex ">
                 <span className="text-[15px] mr-10 flex items-center">
@@ -144,7 +142,6 @@ const InfoModal = ({ setShowModal, reservationInfo, setReservationInfo }) => {
                     reservation_paymentMethod: "GCash",
                   })
                 }
-                checked={reserveData.reservation_paymentMethod == "GCash"}
               />
               <div className="items-center justify-center flex ">
                 <span className="text-[15px] mr-10 flex items-center">
@@ -234,11 +231,16 @@ const InfoModal = ({ setShowModal, reservationInfo, setReservationInfo }) => {
                 Check-in
               </span>
               <input
+                required
                 min={disabledDates()}
                 type="date"
                 className="ml-0 w-40 border border-black h-6 text-[14px] <md:(ml-0 w-40 border h-6 text-[14px])"
-                value={params.date}
-                disabled
+                onChange={(e) =>
+                  setReserveData({
+                    ...reserveData,
+                    Date_Start: e.target.value,
+                  })
+                }
               />
             </div>
           </div>

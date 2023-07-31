@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import EmailSetting from "../../components/SettingComponent/EmailSetting";
 import PasswordSetting from "../../components/SettingComponent/PasswordSetting";
-import UserInfo from "../../components/SettingComponent/UserInfo";
 
 const AccountUserSetting = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -26,12 +25,6 @@ const AccountUserSetting = () => {
             >
               Password Settings
             </span>
-            <span
-              className="mb-9 cursor-pointer h-9 flex items-center text-[18px]"
-              onClick={() => setToggleState(3)}
-            >
-              Information Settings
-            </span>
           </div>
         </div>
         <div className="flex-[0.8] p-5">
@@ -39,8 +32,6 @@ const AccountUserSetting = () => {
             <EmailSetting />
           ) : toggleState == 2 ? (
             <PasswordSetting />
-          ) : toggleState == 3 ? (
-            <UserInfo />
           ) : (
             ""
           )}

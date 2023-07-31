@@ -10,7 +10,6 @@ const add_room = async (req, res) => {
     room_available,
     room_pic,
     room_pax,
-    room_category,
   } = req.body;
 
   try {
@@ -22,7 +21,6 @@ const add_room = async (req, res) => {
       room_available,
       room_total_available: 0,
       room_pax,
-      room_category,
     });
 
     return res.status(200).json(create_room);
@@ -60,15 +58,7 @@ const remove_room = async (req, res) => {
 
 //UPDATE ROOM
 const update_room = async (req, res) => {
-  const {
-    id,
-    room_name,
-    room_price,
-    room_desc,
-    room_available,
-    room_pax,
-    room_category,
-  } = req.body;
+  const { id, room_name, room_price, room_desc, room_available } = req.body;
   try {
     await room_data.update(
       {
@@ -76,8 +66,6 @@ const update_room = async (req, res) => {
         room_price,
         room_desc,
         room_available,
-        room_pax,
-        room_category,
       },
       { where: { ID: id } }
     );
@@ -91,13 +79,13 @@ const update_room = async (req, res) => {
 };
 
 const searchRoom = async (req, res) => {
-  const { category, pax } = req.params;
+  const { availability, pax } = req.params;
 
   try {
     const resultSearch = await room_data.findAll({
       where: {
-        room_category: category,
-        room_pax: { [Op.gte]: pax },
+           room_available: { [Op.gte]: availability } ,
+          room_pax: { [Op.gte]: pax } 
       },
     });
 

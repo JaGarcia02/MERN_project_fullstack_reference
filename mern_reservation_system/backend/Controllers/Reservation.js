@@ -33,18 +33,7 @@ const reserve_room = async (req, res) => {
       reservation_key,
     });
 
-    const room_info = await room_data.findOne({
-      where: { ID: reservation_roomID },
-    });
-
-    SendEmail(
-      reservation_key,
-      req.user.user_Email,
-      req.user.user_FirstName,
-      reservation_package,
-      Date_Start,
-      room_info.room_name
-    );
+    SendEmail(reservation_key, req.user.user_Email, req.user.user_FirstName);
 
     return res.status(200).json(reservation);
   } catch (error) {

@@ -265,41 +265,6 @@ const change_password = async (req, res) => {
   }
 };
 
-//CHANGE BASIC INFORMATION
-const change_info = async (req, res) => {
-  const { ID, password, contactNum, lastName, firstName, middleName } =
-    req.body;
-  try {
-    const findUserId = await users_data.findOne({ where: { ID: ID } });
-
-    const isPasswordCorrect = bcryptjs.compareSync(
-      password,
-      findUserId.user_password
-    );
-
-    if (!isPasswordCorrect) {
-      return res.status(403).json({ message: "Wrong Password!" });
-    }
-
-    await users_data.update(
-      {
-        user_ContactNum: contactNum,
-        user_LastName: lastName,
-        user_FirstName: firstName,
-        user_MiddleName: middleName,
-      },
-      { where: { ID: ID } }
-    );
-
-    return res
-      .status(200)
-      .json({ message: "Password has successfully changed!" });
-  } catch (error) {
-    res.status(500);
-    throw new Error(error);
-  }
-};
-
 const generateToken = (id, username, email, contactNum, fullName) => {
   return jwt.sign(
     { id, username, email, contactNum, fullName },
@@ -308,19 +273,6 @@ const generateToken = (id, username, email, contactNum, fullName) => {
       expiresIn: "8hr",
     }
   );
-};
-
-const get_all_info = async (req, res) => {
-  try {
-    const user = await users_data.findAll({
-      attributes: { exclude: ["user_password"] },
-    });
-
-    return res.status(200).json(user);
-  } catch (error) {
-    res.status(500);
-    throw new Error(error);
-  }
 };
 
 module.exports = {
@@ -333,6 +285,4 @@ module.exports = {
   forgot_password_change,
   change_email,
   change_password,
-  get_all_info,
-  change_info,
 };

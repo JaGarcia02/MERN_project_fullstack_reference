@@ -37,7 +37,6 @@ const AdminSlots = () => {
     setRoomInfo(data);
     setUpdateToggle(true);
   };
-
   useEffect(() => {
     const close = (e) => {
       if (e.keyCode === 27) {
@@ -82,7 +81,7 @@ const AdminSlots = () => {
             Add Room
           </button>
         </div>
-        <div className="w-full flex pt-10  flex-wrap  ">
+        <div className="w-full flex pt-10  flex-wrap  h-full">
           {rooms.map((data) => {
             return (
               <div className="w-80  h-100 ml-5 shadow-sm shadow-gray-900 my-5 flex flex-col  relative mr-5">
@@ -93,9 +92,7 @@ const AdminSlots = () => {
                 <span className="text-[20px] text-center mt-1">
                   {data.room_name}
                 </span>
-                <span className="text-center mx-3 mt-2 overflow-y-auto py-1">
-                  {data.room_desc}
-                </span>
+                <span className="text-center mx-3 mt-2">{data.room_desc}</span>
 
                 <span className="mt-4 mx-3 text-left">
                   Slots: {data.room_available}
@@ -109,8 +106,8 @@ const AdminSlots = () => {
                       room_price: data.room_price,
                       room_desc: data.room_desc,
                       room_available: data.room_available,
-                      room_pax: data.room_pax,
-                      room_category: data.room_category,
+                      room_allowed_children: data.room_allowed_children,
+                      room_allowed_adults: data.room_allowed_adults,
                     })
                   }
                 />
@@ -121,7 +118,60 @@ const AdminSlots = () => {
               </div>
             );
           })}
+
+          {/* <div
+            className="w-65 h-120 shadow-sm shadow-gray-900 my-5 flex flex-col items-center justify-center cursor-pointer group mr-5"
+            onClick={() => setAddRoomToggle(true)}
+          >
+            <IoAddOutline className="text-[80px] bg-gray-300 rounded-full group-hover:(bg-gray-500)" />
+          </div> */}
         </div>
+        {/* <div className="w-[90%] flex flex-wrap">
+          {rooms.map((data) => {
+            return (
+              <div className="w-65 h-120 shadow-sm shadow-gray-900 my-5 flex flex-col relative mr-5">
+                <img
+                  className="w-full h-[60%] object-cover"
+                  src={data.room_pic}
+                />
+                <span className="text-[20px] text-center mt-1">
+                  {data.room_name}
+                </span>
+                <span className="text-center mx-3 mt-2">{data.room_desc}</span>
+                <span className="mt-4 mx-3 text-left">
+                  Price: {data.room_price}
+                </span>
+                <span className="mt-4 mx-3 text-left">
+                  Slots: {data.room_available}
+                </span>
+                <FaEdit
+                  className="absolute bottom-3 right-12 text-[25px] text-green-600 cursor-pointer rounded-md hover:(bg-gray-400)"
+                  onClick={() =>
+                    updating_room({
+                      room_name: data.room_name,
+                      id: data.ID,
+                      room_price: data.room_price,
+                      room_desc: data.room_desc,
+                      room_available: data.room_available,
+                      room_allowed_children: data.room_allowed_children,
+                      room_allowed_adults: data.room_allowed_adults,
+                    })
+                  }
+                />
+                <AiFillDelete
+                  className="absolute bottom-3 right-3 text-[25px] text-red-600 cursor-pointer rounded-md hover:(bg-gray-400)"
+                  onClick={() => delete_room(data.ID)}
+                />
+              </div>
+            );
+          })}
+          <div
+            className="w-65 h-120 shadow-sm shadow-gray-900 my-5 flex flex-col items-center justify-center cursor-pointer group mr-5"
+            onClick={() => setAddRoomToggle(true)}
+          >
+            <IoAddOutline className="text-[80px] bg-gray-300 rounded-full group-hover:(bg-gray-500)" />
+          </div>
+        </div> */}
       </div>
       <AnimatePresence>
         {addRoomToggle && <AdminAddRoon setAddRoomToggle={setAddRoomToggle} />}

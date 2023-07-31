@@ -10,14 +10,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const SendEmail = (key, email, name, package, Date_start, Amenity) => {
+const SendEmail = (key, email, name) => {
   const handlebarOptions = {
     viewEngine: {
       extName: ".handlebars",
-      partialsDir: path.resolve("./Nodemailer/Views"),
+      partialsDir: path.resolve("./Nodemailer/views"),
       defaultLayout: false,
     },
-    viewPath: path.resolve("./Nodemailer/Views"),
+    viewPath: path.resolve("./Nodemailer/views"),
     extName: ".handlebars",
   };
 
@@ -27,13 +27,10 @@ const SendEmail = (key, email, name, package, Date_start, Amenity) => {
     from: "listenapp2022@gmail.com",
     to: email,
     subject: "RESERVATION KEY",
-    template: "Email",
+    template: "email",
     context: {
       name: name,
       key: key,
-      package: package,
-      Date_start: Date_start,
-      Amenity: Amenity,
     },
   };
 
@@ -50,10 +47,10 @@ const SendVerification = (link, email, name) => {
   const handlebarOptions = {
     viewEngine: {
       extName: ".handlebars",
-      partialsDir: path.resolve("./Nodemailer/Views"),
+      partialsDir: path.resolve("./Nodemailer/verification"),
       defaultLayout: false,
     },
-    viewPath: path.resolve("./Nodemailer/Views"),
+    viewPath: path.resolve("./Nodemailer/verification"),
     extName: ".handlebars",
   };
 
@@ -63,10 +60,10 @@ const SendVerification = (link, email, name) => {
     from: "listenapp2022@gmail.com",
     to: email,
     subject: "RESERVATION KEY",
-    template: "Verify",
+    template: "verify",
     context: {
       name: name,
-      link: `https://reservation-t2oi.onrender.com/verification/${link}`,
+      link: `http://localhost:5173/verification/${link}`,
     },
   };
 
@@ -83,10 +80,10 @@ const SendEmailForgot = (link, email, name) => {
   const handlebarOptions = {
     viewEngine: {
       extName: ".handlebars",
-      partialsDir: path.resolve("./Nodemailer/Views"),
+      partialsDir: path.resolve("./Nodemailer/userforgot"),
       defaultLayout: false,
     },
-    viewPath: path.resolve("./Nodemailer/Views"),
+    viewPath: path.resolve("./Nodemailer/userforgot"),
     extName: ".handlebars",
   };
 
@@ -96,30 +93,11 @@ const SendEmailForgot = (link, email, name) => {
     from: "listenapp2022@gmail.com",
     to: email,
     subject: "RESERVATION KEY",
-    template: "Userforgot",
+    template: "userforgot",
     context: {
       name: name,
-      link: `https://reservation-t2oi.onrender.com/forgot/${link}`,
+      link: `http://localhost:5173/forgot/${link}`,
     },
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-};
-
-const SendEmailForgot_admin = (link, email) => {
-  var mailOptions = {
-    from: "listenapp2022@gmail.com",
-    to: email,
-    subject: "Admin Reset Password",
-    text: `Hello Admin this is your ${
-      "https://reservation-t2oi.onrender.com/forgot-admin/" + link
-    }`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -135,5 +113,4 @@ module.exports = {
   SendEmail,
   SendVerification,
   SendEmailForgot,
-  SendEmailForgot_admin,
 };

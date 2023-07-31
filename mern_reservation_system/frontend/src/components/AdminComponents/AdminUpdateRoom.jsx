@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { AiFillCloseCircle } from "react-icons/ai";
 import axios from "axios";
 import { API_URL_ROOMS } from "../../utils/Urls";
-import { GrAdd, GrPowerReset } from "react-icons/gr";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Lottie from "lottie-react";
-import LoadingJson from "../../LottieFiles/98742-loading.json";
 
 const AdminUpdateRoom = ({ setUpdateToggle, roomInfo, setRoomInfo }) => {
-  const [valuePrice, setValuePrice] = useState({ value: "" });
-  const [arrayValues, setArrayValues] = useState([]);
-  const [loading, setLoading] = useState(false);
-
   const update_room = (e) => {
     e.preventDefault();
-    setLoading(true);
     axios
       .put(API_URL_ROOMS + "update-room", {
         id: roomInfo.id,
@@ -24,42 +14,12 @@ const AdminUpdateRoom = ({ setUpdateToggle, roomInfo, setRoomInfo }) => {
         room_name: roomInfo.room_name,
         room_desc: roomInfo.room_desc,
         room_available: roomInfo.room_available,
-        room_category: roomInfo.room_category,
+        room_allowed_children: roomInfo.room_allowed_children,
+        room_allowed_adults: roomInfo.room_allowed_children,
       })
-      .then((res) =>
-        toast.info("UPDATE SUCCESSFULLY", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        })
-      )
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .then((res) => window.location.reload())
+      .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    setRoomInfo({
-      ...roomInfo,
-      room_price: JSON.stringify(arrayValues),
-    });
-  }, [arrayValues]);
-
-  const click_add = () => {
-    setArrayValues([...arrayValues, valuePrice]);
-
-    setValuePrice({ value: "" });
-  };
-
-  const click_reset = () => {
-    setRoomInfo({ ...roomInfo, room_price: null });
-  };
-
-  console.log(roomInfo);
 
   return (
     <motion.div className="fixed h-full w-full  top-0 left-0 bg-black bg-opacity-80 flex items-center justify-center z-99 ">
@@ -79,12 +39,12 @@ const AdminUpdateRoom = ({ setUpdateToggle, roomInfo, setRoomInfo }) => {
             onClick={() => setUpdateToggle(false)}
           />
           <span className="mt-9 font-Roboto text-[25px] w-full text-center">
-            EDIT AMENITY
+            EDIT ROOM
           </span>
           <form className="flex flex-col w-full" onSubmit={update_room}>
             <div className="flex mt-9 mb-6 h-8 relative ">
               <span className="inline-block ml-3 w-[10rem] arial-narrow text-black">
-                AMENITY NAME:
+                ROOM NAME:
               </span>
               <input
                 className="w-60 border h-7 border-black rounded-md bg-white focus:(outline-none)"
@@ -97,38 +57,22 @@ const AdminUpdateRoom = ({ setUpdateToggle, roomInfo, setRoomInfo }) => {
             </div>
             <div className="flex mb-6 h-8 relative ">
               <span className="inline-block ml-3 w-[10rem] arial-narrow text-black">
-                AMENITY PRICE:
+                ROOM PRICE:
               </span>
               <input
-                className="w-30 border h-7 border-black rounded-md bg-white focus:(outline-none)"
+                className="w-60 border h-7 border-black rounded-md bg-white focus:(outline-none)"
                 required
-                onChange={(e) => setValuePrice({ value: e.target.value })}
+                value={roomInfo.room_price}
+                onChange={(e) =>
+                  setRoomInfo({ ...roomInfo, room_price: e.target.value })
+                }
               />
-              <select>
-                {JSON.parse(roomInfo.room_price)?.map((data) => (
-                  <option>{data?.value}</option>
-                ))}
-              </select>
-              <button
-                type="button"
-                className="bg-green-500 h-6 w-6 flex items-center justify-center rounded-md ml-1"
-                onClick={click_add}
-              >
-                <GrAdd />
-              </button>
-              <button
-                type="button"
-                className="bg-red-500 h-6 w-6 flex items-center justify-center rounded-md ml-1"
-                onClick={click_reset}
-              >
-                <GrPowerReset />
-              </button>
             </div>
             <div className="flex mb-6 h-8 relative ">
               <span className="inline-block ml-3 w-[10rem] arial-narrow text-black">
-                AMENITY DESCRIPTION:
+                ROOM DESCRIPTION:
               </span>
-              <textarea
+              <input
                 className="w-60 border h-7 border-black rounded-md bg-white focus:(outline-none)"
                 required
                 value={roomInfo.room_desc}
@@ -139,7 +83,7 @@ const AdminUpdateRoom = ({ setUpdateToggle, roomInfo, setRoomInfo }) => {
             </div>
             <div className="flex mb-6 h-8 relative ">
               <span className="inline-block ml-3 w-[10rem] arial-narrow text-black">
-                AMENITY SLOT:
+                ROOM SLOT:
               </span>
               <input
                 className="w-60 border h-7 border-black rounded-md bg-white focus:(outline-none)"
@@ -152,72 +96,48 @@ const AdminUpdateRoom = ({ setUpdateToggle, roomInfo, setRoomInfo }) => {
             </div>
             <div className="flex mb-6 h-8 relative ">
               <span className="inline-block ml-3 w-[10rem] arial-narrow text-black">
-                AMENITY PAX:
+                CHILDREN COUNT:
               </span>
               <input
                 className="w-60 border h-7 border-black rounded-md bg-white focus:(outline-none)"
                 required
-                value={roomInfo.room_pax}
+                value={roomInfo.room_allowed_children}
                 onChange={(e) =>
-                  setRoomInfo({ ...roomInfo, room_pax: e.target.value })
+                  setRoomInfo({
+                    ...roomInfo,
+                    room_allowed_children: e.target.value,
+                  })
                 }
               />
             </div>
             <div className="flex mb-6 h-8 relative ">
               <span className="inline-block ml-3 w-[10rem] arial-narrow text-black">
-                AMENITY CATEGORY:
+                ADULT COUNT:
               </span>
-              <select
-                required
+              <input
                 className="w-60 border h-7 border-black rounded-md bg-white focus:(outline-none)"
+                required
+                value={roomInfo.room_allowed_adults}
                 onChange={(e) =>
-                  setRoomInfo({ ...roomInfo, room_category: e.target.value })
+                  setRoomInfo({
+                    ...roomInfo,
+                    room_allowed_adults: e.target.value,
+                  })
                 }
-                value={roomInfo.room_category}
-              >
-                <option value="KTV Rooms">KTV Rooms</option>
-                <option value="Pools (Includes Private and Public)">
-                  Pools (Includes Private and Public)
-                </option>
-                <option value="Cottages">Cottages</option>
-                <option value="Kids Pool and Pavilions">
-                  Kids Pool and Pavilions
-                </option>
-                <option value="Function Hall">Function Hall</option>
-              </select>
+              />
             </div>
 
             <div className="w-full flex items-center justify-center">
-              {loading ? (
-                <Lottie
-                  className="w-25 h-25 self-center -mt-5"
-                  animationData={LoadingJson}
-                  loop={true}
-                />
-              ) : (
-                <button
-                  className="w-30 h-10 text-white bg-green-700 rounded-md hover:(bg-green-300)"
-                  type="submit"
-                >
-                  SUBMIT
-                </button>
-              )}
+              <button
+                className="w-30 h-10 text-white bg-green-700 rounded-md hover:(bg-green-300)"
+                type="submit"
+              >
+                SUBMIT
+              </button>
             </div>
           </form>
         </div>
       </motion.div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
     </motion.div>
   );
 };

@@ -11,8 +11,7 @@
     "password": null,
     "database": "reservation_system",
     "host": "localhost",
-    "dialect": "mysql",
-    "timezone": "+8:00"
+    "dialect": "mysql"
   },
   "production": {
     "username": "greenarrow256",

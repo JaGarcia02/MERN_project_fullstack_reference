@@ -22,9 +22,9 @@ const SearchResult = () => {
   const [searchedData, setSearchedData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [searchForms, setSearchForms] = useState({
-    category: parameters.category,
-    pax: parameters.pax,
-    date: parameters.date,
+    available: "",
+    pax: "",
+    date: "",
   });
   const [reservationInfo, setReservationInfo] = useState(null);
   const [reservationData, setReservationData] = useState([]);
@@ -35,7 +35,7 @@ const SearchResult = () => {
     setLoading(true);
     axios
       .get(
-        API_URL_ROOMS + `search-room/${parameters.category}/${parameters.pax}`
+        API_URL_ROOMS + `search-room/${parameters.available}/${parameters.pax}`
       )
       .then((res) => {
         if (subscribed) setSearchedData(res.data);
@@ -56,7 +56,7 @@ const SearchResult = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(
-      `/searched/${searchForms.category}/${searchForms.date}/${searchForms.pax}`
+      `/searched/${searchForms.available}/${searchForms.date}/${searchForms.pax}`
     );
   };
 
@@ -77,7 +77,7 @@ const SearchResult = () => {
 
   return (
     <>
-      <div className="w-screen min-h-screen flex flex-col relative <md:(h-auto)">
+      <div className="w-screen h-screen flex flex-col relative <md:(h-auto)">
         <Navbar />
         <div className="mt-15" />
         <div className="w-full h-25 bg-white px-6 flex text-black items-center <md:(h-10)">
@@ -100,35 +100,18 @@ const SearchResult = () => {
                 onChange={(e) =>
                   setSearchForms({ ...searchForms, date: e.target.value })
                 }
-                value={searchForms.date}
               />
 
-              <span className="text-left mt-3 font-serif  ">Amenities</span>
+              <span className="text-left mt-3 font-serif  ">Rooms</span>
 
-              <select
+              <input
+                className="bg-glasss"
+                type="number"
                 required
-                className="bg-glasss w-full border h-7 border-black  bg-white focus:(outline-none)"
                 onChange={(e) =>
-                  setSearchForms({ ...searchForms, category: e.target.value })
+                  setSearchForms({ ...searchForms, available: e.target.value })
                 }
-                value={searchForms.category}
-              >
-                <option value="" selected hidden>
-                  Choose an option
-                </option>
-                <option value="KTV Rooms">KTV Rooms</option>
-                <option
-                  value="Pools (Includes Private and Public)
-"
-                >
-                  Pools (Includes Private and Public)
-                </option>
-                <option value="Cottages">Cottages</option>
-                <option value="Kids Pool and Pavilions">
-                  Kids Pool and Pavilions
-                </option>
-                <option value="Function Hall">Function Hall</option>
-              </select>
+              />
               <span className="text-left mt-3 font-serif  ">Pax</span>
 
               <input
@@ -138,14 +121,13 @@ const SearchResult = () => {
                 onChange={(e) =>
                   setSearchForms({ ...searchForms, pax: e.target.value })
                 }
-                value={searchForms.pax}
               />
               <button className="self-start mt-7 bg-gray-800 text-white w-20 h-8 rounded-sm shadow-sm shadow-gray-700">
                 Search
               </button>
             </form>
           </div>
-          <div className="flex flex-[0.8] flex-col  pr-3 <md:(pr-0 mt-10)">
+          <div className="flex flex-[0.8] flex-col pr-3 <md:(pr-0 mt-10)">
             {loading ? (
               <Lottie animationData={loadingData} loop={true} />
             ) : (
@@ -159,7 +141,7 @@ const SearchResult = () => {
                     {searchedData?.map((data) => {
                       return (
                         <div
-                          className="h-50 w-full bg-glasss flex mb-5 rounded-sm overflow-auto p-2  <md:(h-30)"
+                          className="h-50 w-full bg-glasss flex mb-5 rounded-sm overflow-auto p-2 <md:(h-30 )"
                           key={data.ID}
                         >
                           <img
@@ -170,7 +152,7 @@ const SearchResult = () => {
                             <span className="text-[23px]  font-Roboto <md:(text-[20px])">
                               {data.room_name}
                             </span>
-                            <span className="text-[15px] mt-3 whitespace-pre-line font-Roboto <md:(text-[13px])">
+                            <span className="text-[15px] mt-3  font-Roboto <md:(text-[13px])">
                               {data.room_desc}
                             </span>
                             <div className="h-10 my-2">
@@ -232,7 +214,6 @@ const SearchResult = () => {
             )}
           </div>
         </div>
-        <Footer />
         <MessengerChat
           pageId="110248655314753"
           language="en_US"
@@ -241,10 +222,9 @@ const SearchResult = () => {
           greetingDialogDisplay={"show"}
           debugMode={true}
         />
+        <Footer />
       </div>
-      <AnimatePresence>
-        {showModal && !user && <LoginModal setShowModal={setShowModal} />}
-      </AnimatePresence>
+      <AnimatePresence>{showModal && !user && <LoginModal />}</AnimatePresence>
       <AnimatePresence>
         {showModal && user && (
           <InfoModal

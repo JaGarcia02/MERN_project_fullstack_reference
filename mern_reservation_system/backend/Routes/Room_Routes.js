@@ -14,6 +14,6 @@ router.post("/add-room", add_room);
 router.get("/get-rooms", get_rooms);
 router.delete("/remove-room/:id", remove_room);
 router.put("/update-room", update_room);
-router.get("/search-room/:category/:pax", searchRoom);
+router.get("/search-room/:availability/:pax", searchRoom);
 
 module.exports = router;

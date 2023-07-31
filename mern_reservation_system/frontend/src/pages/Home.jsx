@@ -7,12 +7,10 @@ import Footer from "../components/Footer";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdEmail, MdLocationPin } from "react-icons/md";
 import GoogleMapReact from "google-map-react";
-import { AiFillFacebook, AiOutlineClose } from "react-icons/ai";
 import ReservationSticky from "../components/ReservationSticky";
 const Home = () => {
   const navigate = useNavigate();
   const [slideIndex, setSlideIndex] = useState(1);
-  const [pickedImg, setPickedImg] = useState(null);
 
   const imageData = [
     { id: 1, strImg: "/imgs/pubpriv1.jpg" },
@@ -33,25 +31,8 @@ const Home = () => {
     return () => clearInterval(autoPlay);
   }, [nextSlide]);
 
-  const clicked_img = (imgUrl) => {
-    setPickedImg(imgUrl);
-  };
-
-  useEffect(() => {
-    const close = (e) => {
-      if (e.keyCode === 27) {
-        setPickedImg(null);
-      }
-    };
-    window.addEventListener("keydown", close);
-
-    return () => {
-      window.removeEventListener("keydown", close);
-    };
-  }, []);
-
   return (
-    <div className="w-screen min-h-screen flex flex-col relative">
+    <div className="w-screen flex flex-col ">
       <Navbar />
       <ReservationSticky />
       <div className="w-full relative h-screen">
@@ -72,79 +53,41 @@ const Home = () => {
         })}
       </div>
 
-      <span className="text-center text-black font-bold mt-15 text-[30px]">
-        OFFERS AND DEAL
-      </span>
-      <div className="flex-row justify-evenly text-center relative h-full  w-full flex <md:(text-center items-center justify-center flex-col flex w-full mb-40 )">
-        <div className="flex-col w-70 mt-3 <md:( items-center justify-center flex)">
-          <img
-            src="/imgs/sched.jpg"
-            className="h-70 w-70 rounded-md mt-3 object-contain cursor-pointer"
-            onClick={() => clicked_img("/imgs/sched.jpg")}
-          />
-        </div>
-        <div className="flex-col w-70 mt-3 <md:( items-center justify-center flex)">
-          <img
-            src="/imgs/package.png"
-            className="h-70 w-70 rounded-md mt-3 object-contain cursor-pointer"
-            onClick={() => clicked_img("/imgs/package.png")}
-          />
-        </div>
-        <div className="flex-col w-70 mt-3 ">
-          <img
-            src="/imgs/dikoalam.png"
-            className="h-70 w-70 mt-3 rounded-md  object-contain cursor-pointer"
-            onClick={() => clicked_img("/imgs/dikoalam.png")}
-          />
-        </div>
-        <div className="flex-col  w-70 mt-3 ">
-          <img
-            src="/imgs/what.png"
-            className="h-70 w-70 rounded-md mt-3 object-contain cursor-pointer"
-            onClick={() => clicked_img("/imgs/what.png")}
-          />
-        </div>
-      </div>
-
-      <div className="flex-row justify-evenly text-center h-full w-full flex mt-20 <md:(text-center items-center justify-center flex-col flex w-full mb-40 )">
+      <div className="flex-row justify-evenly text-center h-full w-full flex <md:(text-center items-center justify-center flex-col flex w-full mb-40 )">
         <div className="flex-col w-70 mt-3 <md:( items-center justify-center flex)">
           <span className="font-serif font-bold">Facilities</span>
           <img
             src="/imgs/ktv.jpg"
-            className="h-40 w-70 rounded-md mt-3 object-cover cursor-pointer"
-            onClick={() => clicked_img("/imgs/ktv.jpg")}
+            className="h-40 w-70 rounded-md mt-3 object-cover "
           />
           <span className="font-serif text-[15px] <md:(text-[10px]) <md:(w-full)">
-            Visit our environmentally friendly garden resort to unwind, breathe
-            in Bulacan's fresh air, and take use of our services while taking in
-            the resort's amazing scenery.
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s,
           </span>
         </div>
         <div className="flex-col w-70 mt-3 ">
           <span className="font-serif font-bold">What's On</span>
           <img
-            src="/imgs/bgpool.jpg"
-            className="h-40 w-70 mt-3 rounded-md  object-cover cursor-pointer"
-            onClick={() => clicked_img("/imgs/bgpool.jpg")}
+            src="/imgs/art.jpg"
+            className="h-40 w-70 mt-3 rounded-md  object-cover "
           />
           <span className="font-serif text-[15px] <md:(text-[10px])">
-            Enjoy our pool that can provide relaxation and enjoy your holiday
-            with us, we assure that everything you need we can provide with
-            great service and quality
+            The first museum exhibition to approach the movement from this
+            perspective, LACMA’s new show will comprise 90 paintings and 45
+            works on paper from a diverse..
           </span>
         </div>
         <div className="flex-col h-50 w-70 mt-3 ">
-          <span className="font-serif font-bold">Celebrate with us</span>
+          <span className="font-serif font-bold">What's Hot</span>
           <img
-            src="/imgs/celeb.jpg"
-            className="h-40 w-70 rounded-md mt-3  object-cover cursor-pointer"
-            onClick={() => clicked_img("/imgs/celeb.jpg")}
+            src="/imgs/panagbenga.jpg"
+            className="h-40 w-70 rounded-md mt-3  object-cover "
           />{" "}
           <span className="font-serif text-[15px] <md:(text-[10px])">
-            Escape to our beautiful resort and celebrate with us! Whether you're
-            here for a romantic getaway, a family vacation, or a special
-            occasion, we have everything you need to make your stay
-            unforgettable.
+            Panagbenga Festival is a month-long annual flower occasion in
+            Baguio. The term is of Kankanaey origin, meaning "season of
+            blooming". The festival, held in February.
           </span>
         </div>
       </div>
@@ -157,27 +100,15 @@ const Home = () => {
             </span>
             <span className=" mt-6 font-resortlogocontact h-10 items-center flex  text-[15px]  mt-2 <md:(text-[10px])">
               <BsFillTelephoneFill className="mr-2 text-[20px] font-resortlogocontactk" />
-              0919 806 0645 <br />
-              (044) 308-5247
+              +6391234567890
             </span>
             <span className="  font-resortlogocontact h-10 items-center flex text-[15px]  <md:(text-[10px]">
               <MdEmail className="mr-2 text-[20px]  " />
-              njegardenresortandpavillion@gmail.com
+              example@example.com
             </span>
-            <p className="  font-resortlogocontact h-10 items-center flex text-[15px] hover:text-blue-700 <md:(text-[10px]">
-              <AiFillFacebook className="mr-2 text-[20px]  " />
-              <a
-                href="https://www.facebook.com/NJEresortlegitaccount"
-                target="_blank"
-              >
-                {" "}
-                https://www.facebook.com/NJEresortlegitaccount
-              </a>
-            </p>
             <span className="  font-resortlogocontact h-10 items-center flex text-[15px] <md:(text-[10px]">
-              <MdLocationPin className="mr-2 text-[20px]  " />
-              #99 A. MABINI ST. BRGY SABANG BALIUAG,BULACAN, Baliuag,
-              Philippines
+              <MdLocationPin className="mr-2 text-[20px]  " /># street, sample
+              barangay. District,City
             </span>
           </div>
         </div>
@@ -202,15 +133,6 @@ const Home = () => {
         debugMode={true}
       />
       <Footer />
-      {pickedImg && (
-        <div className="w-screen h-screen fixed flex top-0 left-0 items-center justify-center bg-black/80 z-10000">
-          <AiOutlineClose
-            className="absolute top-2 right-8 text-[50px] cursor-pointer text-white"
-            onClick={() => setPickedImg(null)}
-          />
-          <img src={pickedImg} className="h-150 w-150 object-contain" />
-        </div>
-      )}
     </div>
   );
 };

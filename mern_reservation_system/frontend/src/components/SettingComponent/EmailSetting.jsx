@@ -7,16 +7,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Lottie from "lottie-react";
 import loadingJson from "../../LottieFiles/98742-loading.json";
-import { IoEyeSharp } from "react-icons/io5";
 
 const EmailSetting = () => {
   const { user } = useSelector((state) => state.user);
   const [fieldForms, setFieldForms] = useState({
     password: "",
-    newEmail: jwt(user).email,
+    newEmail: "",
   });
   const [loading, setLoading] = useState(false);
-  const [revealPassword, setRevealPassword] = useState(false);
 
   const submit_data = (e) => {
     e.preventDefault();
@@ -72,25 +70,16 @@ const EmailSetting = () => {
           onChange={(e) =>
             setFieldForms({ ...fieldForms, newEmail: e.target.value })
           }
-          value={fieldForms.newEmail}
         />
-        <div className="border border-black mb-6 w-80 h-10 pl-1 rounded-sm relative flex items-center">
-          <input
-            className="w-full h-full  focus:(outline-none)"
-            placeholder="Current Password"
-            type={revealPassword ? "text" : "password"}
-            required
-            onChange={(e) =>
-              setFieldForms({ ...fieldForms, password: e.target.value })
-            }
-          />
-          <IoEyeSharp
-            className="absolute  right-2 text-[20px] cursor-pointer"
-            onMouseDown={() => setRevealPassword(true)}
-            onMouseUp={() => setRevealPassword(false)}
-            onMouseLeave={() => setRevealPassword(false)}
-          />
-        </div>
+        <input
+          className="border border-black mb-6 w-80 h-10 pl-1 rounded-sm"
+          placeholder="Current Password"
+          type="password"
+          required
+          onChange={(e) =>
+            setFieldForms({ ...fieldForms, password: e.target.value })
+          }
+        />
         {loading ? (
           <Lottie animationData={loadingJson} loop={true} classID="w-60 h-15" />
         ) : (

@@ -25,9 +25,6 @@ import { API_URL_ADMIN } from "./utils/Urls";
 import ForgotPassword from "./pages/ForgotPassword";
 import ForgotChange from "./pages/ForgotChange";
 import AccountUserSetting from "./pages/UserPages/AccountUserSetting";
-import AdminSettings from "./pages/AdminPages/AdminSettings";
-import AdminForgotReq from "./pages/AdminPages/AdminForgotReq";
-import AdminForgotChange from "./pages/AdminPages/AdminForgotChange";
 
 function App() {
   const { admin } = useSelector((state) => state.admin);
@@ -54,14 +51,12 @@ function App() {
           />
           <Route path="/accommodations" element={<Accomidation />} />
           <Route
-            path="/searched/:category/:date/:pax"
+            path="/searched/:available/:date/:pax"
             element={<SearchResult />}
           />
           <Route path="/verification/:token" element={<TokenVerify />} />
           <Route path="/forgot-pass" element={<ForgotPassword />} />
           <Route path="/forgot/:token" element={<ForgotChange />} />
-          <Route path="/admin-forgot" element={<AdminForgotReq />} />
-          <Route path="/forgot-admin/:token" element={<AdminForgotChange />} />
         </Route>
 
         {/*===========================================USER PROTECTED ROUTES ============================================================== */}
@@ -77,7 +72,6 @@ function App() {
           <Route path="/transactions" element={<AdminTransactions />} />
           <Route path="/admin-reservation" element={<AdminReservation />} />
           <Route path="/admin-report" element={<AdminReports />} />
-          <Route path="/admin-settings" element={<AdminSettings />} />
         </Route>
         {/*==========================ROUTES FOR WILDCARDS =========================================== */}
         <Route path="/blocked" element={<BlockingPage />} />
